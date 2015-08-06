@@ -73,6 +73,7 @@ Attributes
 ----------
 
 * `node['citadel']['bucket']` – The default S3 bucket to use.
+* `node['citadel']['region']` – The default region where the bucket is located (default is S3, or the default region).
 
 Recipe Usage
 ------------

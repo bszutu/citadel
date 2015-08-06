@@ -34,7 +34,7 @@ class Citadel
   module S3
     extend self
 
-    def get(bucket, path, aws_access_key_id, aws_secret_access_key, token=nil)
+    def get(bucket, region, path, aws_access_key_id, aws_secret_access_key, token=nil)
       path = path[1..-1] if path[0] == '/'
       now = Time.now().utc.strftime('%a, %d %b %Y %H:%M:%S GMT')
 
@@ -51,7 +51,7 @@ class Citadel
       }
       headers['x-amz-security-token'] = token if token
       begin
-        Chef::HTTP.new("https://#{bucket}.s3.amazonaws.com").get(path, headers)
+        Chef::HTTP.new("https://#{bucket}.#{region}.amazonaws.com").get(path, headers)
       rescue Net::HTTPServerException => e
         raise CitadelError, "Unable to download #{path}: #{e}"
       end
